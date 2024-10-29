@@ -7,7 +7,11 @@ if(builder.Environment.IsDevelopment())
 {
     builder.Services.AddDbContext<MyDatabaseContext>(options =>
         options.UseSqlServer(builder.Configuration.GetConnectionString("MyDbConnection")));
-    builder.Services.AddDistributedMemoryCache();
+    builder.Services.AddStackExchangeRedisCache(options =>
+    {
+        options.Configuration = builder.Configuration["laboratory-2cache.redis.cache.windows.net:6380,password=lIpqs0XLIXgiEzIEPKIX7LncLpDxNle3EAzCaKnEB4U=,ssl=True,defaultDatabase=0"];
+        options.InstanceName = "SampleInstance";
+        });
 }
 else
 {
